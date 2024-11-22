@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <title>Stroke Prediction</title>
+    
+    <style>
+        /* Background and body styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #808080;
+            background-image: linear-gradient(315deg, #B993D6 19%, #8CA6DB 85%);
+            overflow-x: hidden;
+            font-size: small;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .container {
+            margin-top: 60px;
+            border-radius: 10px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+        }
+
+        .btn-container {
+            padding: 20px;
+        }
+
+        .head {
+            font-weight: bold;
+            color: #073b4c;
+        }
+
+        .btn-primary {
+            color: #ffffff;
+            background-color: #073b4c;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #065a73;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-select,
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .form-select:focus,
+        .form-control:focus {
+            border-color: #073b4c;
+            box-shadow: 0px 0px 5px rgba(7, 59, 76, 0.4);
+        }
+
+        label {
+            font-weight: bold;
+            color: #073b4c;
+        }
+
+        .prediction {
+            background: #073b4c;
+            color: aliceblue;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+
+    <!-- Particles.js library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <div class="container">
+        <a href="login.html">
+            <i class="fa-solid fa-right-to-bracket fa-3x"></i>
+        </a>
+        <h1 class="head text-center mb-4">Stroke Prediction</h1>
+        
+        <!-- Form for Prediction -->
+        <div class="btn-container">
+            <form action="{{ url_for('predict')}}" method="post">
+                <div class="form-group">
+                    <label for="gender"><i class="fa fa-user"></i> Gender</label>
+                    <select class="form-select" id="gender" name="gender" aria-label="Default select example">
+                        <option value="1">Male</option>
+                        <option value="0">Female</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="age"><i class="fa fa-calendar"></i> Age</label>
+                    <input type="number" class="form-control" name="age" required placeholder="Age" min="1" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="hypertension"><i class="fa fa-heartbeat"></i> Hypertension</label>
+                    <select class="form-select" id="hypertension" name="hypertension">
+                        <option value="1" selected>Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="heart_disease"><i class="fa fa-heart"></i> Heart Disease</label>
+                    <select class="form-select" id="disease" name="disease">
+                        <option value="1" selected>Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ever_married"><i class="fa fa-ring"></i> Ever Married</label>
+                    <select class="form-select" id="married" name="married">
+                        <option value="1" selected>Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="work_type"><i class="fa fa-briefcase"></i> Work Type</label>
+                    <select class="form-select" id="work" name="work">
+                        <option value="3" selected>Self-employed</option>
+                        <option value="2">Private</option>
+                        <option value="4">Children</option>
+                        <option value="0">Government Job</option>
+                        <option value="1">Never worked</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="residence_type"><i class="fa fa-home"></i> Residence Type</label>
+                    <select class="form-select" id="residence" name="residence">
+                        <option value="1" selected>Urban</option>
+                        <option value="0">Rural</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="avg_glucose_level"><i class="fa fa-tint"></i> Average Glucose Level</label>
+                    <input type="text" class="form-control" name="avg_glucose_level" required placeholder="Average Glucose Level">
+                </div>
+
+                <div class="form-group">
+                    <label for="bmi"><i class="fa fa-weight"></i> BMI</label>
+                    <input type="text" class="form-control" name="bmi" required placeholder="Body Mass Index (BMI)">
+                </div>
+
+                <div class="form-group">
+                    <label for="smoking"><i class="fa fa-smoking"></i> Smoking Status</label>
+                    <select class="form-select" id="smoking" name="smoking">
+                        <option value="0">Unknown</option>
+                        <option value="2" selected>Never smoked</option>
+                        <option value="1">Formerly smoked</option>
+                        <option value="3">Smokes</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Predict</button>
+                <br>
+                <center>
+                    <h1 class="prediction">{{ prediction_text }}</h1>
+                </center>
+            </form>
+        
+        </div>
+    </div>
+
+    <!-- Particle Configuration -->
+    <script>
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": { "enable": true, "value_area": 800 }
+                },
+                "color": { "value": "#ffffff" },
+                "shape": {
+                    "type": "circle",
+                    "stroke": { "width": 0, "color": "#000000" }
+                },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 2, "direction": "none" }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" } },
+                "modes": {
+                    "repulse": { "distance": 150, "duration": 0.4 }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>  

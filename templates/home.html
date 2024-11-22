@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brain Stroke Prediction</title>
+  <style>
+    /* Reset and Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      background: #f4f6f9; /* Softer Grey Background */
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: #003580; /* Deep Blue */
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      font-family: 'Arial Black', sans-serif;
+      color: #FFD700;
+      animation: logoFadeIn 1s ease-in-out;
+    }
+
+    @keyframes logoFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a, .nav-buttons button {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      border: none;
+      
+      cursor: pointer;
+      transition: background 0.3s;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover, .nav-buttons button:hover {
+      background: #ffffff;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .login, .register {
+      padding: 8px 12px;
+      background: #FFD700;
+      color: #003580;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .register {
+      background: #FFA500;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 120px 20px;
+      background: linear-gradient(135deg, #003366, #004080);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      animation: typing 3s steps(30, end), blink-caret 0.5s step-end infinite;
+      overflow: hidden;
+      border-right: 3px solid #FFD700;
+      white-space: nowrap;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
+
+    .cta-button {
+      padding: 12px 20px;
+      font-size: 1rem;
+      color: #003580;
+      background-color: #FFD700;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .cta-button:hover {
+      background-color: #FFC107;
+    }
+
+    /* Typing animation */
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: #FFD700; }
+    }
+
+    /* Content Sections */
+    .content-section {
+      padding: 60px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .content-section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #003580;
+    }
+
+    .content-section p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #555;
+    }
+
+    /* Feature Cards */
+    .feature-cards {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      flex: 1 1 250px;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s;
+      max-width: 300px;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      color: #003580;
+    }
+
+    /* Contact Section */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .contact-form input, .contact-form textarea, .contact-form button {
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .contact-form button {
+      background-color: #003580;
+      color: #fff;
+      cursor: pointer;
+      border: none;
+      transition: background 0.3s;
+    }
+
+    .contact-form button:hover {
+      background-color: #004080;
+    }
+
+    /* Footer */
+    footer {
+      background: #003366;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">StrokePredict</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <button class="login"><a href="http://127.0.0.1:5000/login">Login</a></button>
+      <button class="register"><a href="http://127.0.0.1:5000/register">Register</a></button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero fade-in">
+    <h1>Predict Brain Stroke with Machine Learning</h1>
+    <p>Discover the potential to save lives by predicting stroke risks early through advanced AI algorithms.</p>
+    <button class="cta-button">Start Predicting Now</button>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="content-section fade-in">
+    <h2>About Stroke Prediction</h2>
+    <p>Our tool combines AI and healthcare expertise to provide early stroke prediction, empowering individuals and healthcare providers with actionable insights.</p>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="content-section fade-in">
+    <h2>Features</h2>
+    <div class="feature-cards">
+      <div class="card">
+        <h3>AI-Powered Analysis</h3>
+        <p>Leverages advanced algorithms to analyze health data with precision.</p>
+      </div>
+      <div class="card">
+        <h3>User-Friendly Interface</h3>
+        <p>Accessible to users from all backgrounds for easy health insights.</p>
+      </div>
+      <div class="card">
+        <h3>Immediate Feedback</h3>
+        <p>Instant predictions to inform proactive healthcare decisions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="content-section fade-in">
+    <h2>How It Works</h2>
+    <ol>
+      <li>Upload Your Health Data</li>
+      <li>AI Processes and Analyzes</li>
+      <li>Receive Your Stroke Prediction</li>
+    </ol>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="content-section fade-in">
+    <h2>Contact Us</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 StrokePredict | All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
