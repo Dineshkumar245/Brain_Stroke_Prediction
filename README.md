@@ -4,7 +4,7 @@ This project aims to use machine learning to predict stroke risk, a leading caus
 # Project_Explanition
 As this project is based on brain stroke prediction where it uses mainly three ML techniques like ANN,Decision Tree,Naive Bayes.were the result will with based on the data input from the users by showing that did the user has stroke or not.
 
-#Steps_to_be_followed_to_run_the_project
+# Steps_to_be_followed_to_run_the_project
 1)Make sure python is installed
 2)Install few libraries like 
     *Numpy
@@ -16,8 +16,7 @@ As this project is based on brain stroke prediction where it uses mainly three M
 5)After few seconds a bunch of commands excuited in it.Search for an url(http://127.0.0.1:5000) and click it for see the result
 6)In index page you can see a login button aswell as register button.At first register an name and password later login with help of it.You will find the page for prediction.
 
-
-#Data_Base
-The entered input details and login details can be viewd in database with the help of VS Code for that u need to install sqllite and sqllite viewer from the vs code extension.Later you can see the details from the database code.
+# Data_Base
+The entered input details and login details can be viewd in database with the help of VS Code for that you need to install sqllite and sqllite viewer from the vs code extension.Later you can see the details from the database code.
 
     
